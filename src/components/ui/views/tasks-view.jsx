@@ -55,16 +55,16 @@ export function TasksView({ tasks, subjects, toggleTaskCompletion, addTask, dele
     }
   }
 
-  // Group tasks by completion status
+
   const pendingTasks = tasks.filter(task => !task.completed)
   const completedTasks = tasks.filter(task => task.completed)
 
-  // Group tasks by priority
+
   const highPriorityTasks = tasks.filter(task => task.priority === "high" && !task.completed)
   const mediumPriorityTasks = tasks.filter(task => task.priority === "medium" && !task.completed)
   const lowPriorityTasks = tasks.filter(task => task.priority === "low" && !task.completed)
 
-  // Group tasks by due date
+
   const today = new Date().toISOString().split('T')[0]
   const todayTasks = tasks.filter(task => task.dueDate === today && !task.completed)
   
@@ -81,7 +81,7 @@ export function TasksView({ tasks, subjects, toggleTaskCompletion, addTask, dele
     task.dueDate < today && !task.completed
   )
 
-  // Render task item
+
   const renderTaskItem = (task) => {
     const subject = subjects.find(s => s.id === task.subjectId)
     return (
