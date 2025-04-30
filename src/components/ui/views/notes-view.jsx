@@ -52,7 +52,7 @@ export function NotesView({ notes, subjects, addNote, deleteNote }) {
     }
   }
 
-  // Filter notes based on search query and selected subject
+
   const filteredNotes = notes.filter((note) => {
     const matchesSearch =
       note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
