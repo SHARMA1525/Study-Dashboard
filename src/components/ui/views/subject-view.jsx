@@ -100,11 +100,11 @@ export function SubjectView({
     updateProgress(subject.id, value[0])
   }
 
-  // Calculate task completion percentage
+
   const completedTasksPercentage =
     tasks.length > 0 ? Math.round((tasks.filter((task) => task.completed).length / tasks.length) * 100) : 0
 
-  // Separate pending and completed tasks
+
   const pendingTasks = tasks.filter((task) => !task.completed)
   const completedTasks = tasks.filter((task) => task.completed)
 
