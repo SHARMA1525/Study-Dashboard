@@ -25,7 +25,7 @@ export function MainContent({
   toggleTaskCompletion,
   updateSubjectProgress
 }) {
-  // Render the appropriate view based on activeView
+
   const renderView = () => {
     switch (activeView) {
       case "dashboard":
