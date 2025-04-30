@@ -6,7 +6,7 @@ import { MainContent } from "@/components/main-content"
 import { useLocalStorage } from "@/hooks/use-local-storage"
 
 export function Dashboard() {
-  // Load initial data from localStorage or use defaults
+
   const [subjects, setSubjects] = useLocalStorage("subjects", [
     { id: "1", name: "Mathematics", color: "#FF5733", progress: 25 },
     { id: "2", name: "Physics", color: "#33A1FF", progress: 40 },
@@ -29,12 +29,12 @@ export function Dashboard() {
   const [activeView, setActiveView] = useState("dashboard")
   const [activeSubject, setActiveSubject] = useState(null)
 
-  // Calculate overall progress
+
   const overallProgress = subjects.length > 0 
     ? subjects.reduce((sum, subject) => sum + subject.progress, 0) / subjects.length 
     : 0
 
-  // Add a new subject
+
   const addSubject = (subject) => {
     const newSubject = {
       ...subject,
@@ -43,25 +43,25 @@ export function Dashboard() {
     setSubjects([...subjects, newSubject])
   }
 
-  // Delete a subject
+
   const deleteSubject = (subjectId) => {
-    // Delete the subject
+
     setSubjects(subjects.filter(subject => subject.id !== subjectId))
     
-    // Delete associated tasks
+
     setTasks(tasks.filter(task => task.subjectId !== subjectId))
     
-    // Delete associated notes
+
     setNotes(notes.filter(note => note.subjectId !== subjectId))
     
-    // If the deleted subject was active, go back to dashboard
+
     if (activeSubject === subjectId) {
       setActiveView("dashboard")
       setActiveSubject(null)
     }
   }
 
-  // Add a new task
+
   const addTask = (task) => {
     const newTask = {
       ...task,
@@ -71,12 +71,12 @@ export function Dashboard() {
     setTasks([...tasks, newTask])
   }
 
-  // Delete a task
+
   const deleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId))
   }
 
-  // Toggle task completion
+
   const toggleTaskCompletion = (taskId) => {
     setTasks(
       tasks.map(task => 
@@ -85,7 +85,7 @@ export function Dashboard() {
     )
   }
 
-  // Add a new note
+
   const addNote = (note) => {
     const newNote = {
       ...note,
@@ -95,12 +95,12 @@ export function Dashboard() {
     setNotes([...notes, newNote])
   }
 
-  // Delete a note
+
   const deleteNote = (noteId) => {
     setNotes(notes.filter(note => note.id !== noteId))
   }
 
-  // Update subject progress
+
   const updateSubjectProgress = (subjectId, progress) => {
     setSubjects(
       subjects.map(subject => 
