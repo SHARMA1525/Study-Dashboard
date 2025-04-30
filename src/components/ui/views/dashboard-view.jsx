@@ -5,22 +5,22 @@ import { Progress } from "@/components/ui/progress"
 import { Clock, AlertCircle } from "lucide-react"
 
 export function DashboardView({ subjects, tasks, overallProgress }) {
-  // Get today's date in YYYY-MM-DD format
+
   const today = new Date().toISOString().split("T")[0]
 
-  // Filter tasks due today
+
   const tasksToday = tasks.filter((task) => task.dueDate === today && !task.completed)
 
-  // Filter high priority tasks
+
   const highPriorityTasks = tasks.filter((task) => task.priority === "high" && !task.completed)
 
-  // Calculate completed tasks percentage
+
   const completedTasksPercentage =
     tasks.length > 0 ? Math.round((tasks.filter((task) => task.completed).length / tasks.length) * 100) : 0
 
   return (
     <div className="space-y-6">
-      {/* Overview Cards */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="pb-2">
@@ -57,7 +57,7 @@ export function DashboardView({ subjects, tasks, overallProgress }) {
         </Card>
       </div>
 
-      {/* Tasks Section */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -121,7 +121,7 @@ export function DashboardView({ subjects, tasks, overallProgress }) {
         </Card>
       </div>
 
-      {/* Subjects Progress */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Subject Progress</CardTitle>
