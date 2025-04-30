@@ -9,26 +9,26 @@ import { Slider } from "@/components/ui/slider"
 import { Play, Pause, RotateCcw, Coffee } from "lucide-react"
 
 export function PomodoroView({ subjects }) {
-  // Timer states
+
   const [mode, setMode] = useState("focus")
   const [isActive, setIsActive] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(25 * 60) // 25 minutes in seconds
-  const [focusTime, setFocusTime] = useState(25) // in minutes
-  const [breakTime, setBreakTime] = useState(5) // in minutes
+  const [timeLeft, setTimeLeft] = useState(25 * 60) 
+  const [focusTime, setFocusTime] = useState(25) 
+  const [breakTime, setBreakTime] = useState(5) 
   const [selectedSubject, setSelectedSubject] = useState(null)
   const [sessionsCompleted, setSessionsCompleted] = useState(0)
 
-  // Audio refs
+
   const alarmSound = useRef(null)
 
-  // Initialize audio
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      alarmSound.current = new Audio("/notification.mp3") // You would need to add this file to your public folder
+      alarmSound.current = new Audio("/notification.mp3") 
     }
   }, [])
 
-  // Timer effect
+
   useEffect(() => {
     let interval = null
 
@@ -37,21 +37,21 @@ export function PomodoroView({ subjects }) {
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1)
       }, 1000)
     } else if (isActive && timeLeft === 0) {
-      // Play sound when timer ends
+
       if (alarmSound.current) {
         alarmSound.current.play().catch((e) => console.error("Error playing sound:", e))
       }
 
-      // Switch modes
+
       if (mode === "focus") {
         setMode("break")
         setTimeLeft(breakTime * 60)
         setSessionsCompleted((prev) => prev + 1)
-        setIsActive(false) // Pause timer when switching modes
+        setIsActive(false) 
       } else {
         setMode("focus")
         setTimeLeft(focusTime * 60)
-        setIsActive(false) // Pause timer when switching modes
+        setIsActive(false) 
       }
     }
 
@@ -60,20 +60,20 @@ export function PomodoroView({ subjects }) {
     }
   }, [isActive, timeLeft, mode, focusTime, breakTime])
 
-  // Format time as MM:SS
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60)
     const secs = seconds % 60
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
 
-  // Calculate progress percentage
+
   const calculateProgress = () => {
     const totalTime = mode === "focus" ? focusTime * 60 : breakTime * 60
     return ((totalTime - timeLeft) / totalTime) * 100
   }
 
-  // Handle timer controls
+
   const toggleTimer = () => {
     setIsActive(!isActive)
   }
@@ -94,7 +94,7 @@ export function PomodoroView({ subjects }) {
     }
   }
 
-  // Update timer settings
+
   const updateFocusTime = (value) => {
     const newFocusTime = value[0]
     setFocusTime(newFocusTime)
