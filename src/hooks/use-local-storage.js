@@ -1,17 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    if (typeof window === "undefined") return initialValue;
+  const [storedValue, setStoredValue] = useState(initialValue);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
     try {
       const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      if (item) {
+        setStoredValue(JSON.parse(item));
+      }
+      setIsHydrated(true);
     } catch (error) {
       console.error(error);
-      return initialValue;
+      setIsHydrated(true);
     }
-  });
+  }, [key]);
 
   const setValue = (value) => {
     try {
