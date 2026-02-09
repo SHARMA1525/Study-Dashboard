@@ -36,7 +36,8 @@ export function Sidebar({
   activeSubject,
   setActiveSubject,
   addSubject,
-  deleteSubject
+  deleteSubject,
+  onLogout
 }) {
   const [isAddSubjectOpen, setIsAddSubjectOpen] = useState(false)
   const [newSubject, setNewSubject] = useState({ name: "", color: "#3B82F6" })
@@ -232,6 +233,15 @@ export function Sidebar({
                   >
                     <Settings className="h-4 w-4" />
                     <span>Settings</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    onClick={onLogout}
+                    className="text-red-500 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30"
+                  >
+                    <LayoutDashboard className="h-4 w-4 rotate-180" />
+                    <span>Logout</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
