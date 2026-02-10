@@ -40,26 +40,31 @@ export const api = {
 
     async post(endpoint, data) {
         console.log(`[API] POST ${endpoint}`, data);
-        const res = await fetch(`${API_URL}${endpoint}`, {
-            method: 'POST',
-            headers: getHeaders(),
-            body: JSON.stringify(data),
-        });
-        console.log(`[API] POST ${endpoint} Status: ${res.status}`);
-        if (!res.ok) {
-            let errorMsg = `Server error: ${res.status}`;
-            const rawBody = await res.text().catch(() => '');
-            console.error(`[API] Error Status: ${res.status}, Body: ${rawBody.substring(0, 200)}`);
-            try {
-                const errorData = JSON.parse(rawBody);
-                errorMsg = errorData.message || errorData.Message || errorMsg;
-            } catch (err) {
-                console.warn(`[API] Response was not valid JSON for POST ${endpoint}`);
+        try {
+            const res = await fetch(`${API_URL}${endpoint}`, {
+                method: 'POST',
+                headers: getHeaders(),
+                body: JSON.stringify(data),
+            });
+            console.log(`[API] POST ${endpoint} Status: ${res.status}`);
+            if (!res.ok) {
+                let errorMsg = `Server error: ${res.status}`;
+                const rawBody = await res.text().catch(() => '');
+                console.error(`[API] Error Status: ${res.status}, Body: ${rawBody.substring(0, 200)}`);
+                try {
+                    const errorData = JSON.parse(rawBody);
+                    errorMsg = errorData.message || errorData.Message || errorMsg;
+                } catch (err) {
+                    console.warn(`[API] Response was not valid JSON for POST ${endpoint}`);
+                }
+                throw new Error(errorMsg);
             }
-            throw new Error(errorMsg);
+            const result = await res.json();
+            return { ...result, id: result._id || result.id };
+        } catch (error) {
+            console.error(`[API_FETCH_ERROR] POST ${endpoint} failed:`, error);
+            throw error;
         }
-        const result = await res.json();
-        return { ...result, id: result._id || result.id };
     },
 
     async put(endpoint, data) {
