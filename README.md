@@ -54,3 +54,5 @@ npm run dev
 - **Tasks**: Track tasks with priorities and due dates.
 - **Notes**: Rich note-taking for each subject.
 - **Persistence**: All data is saved to MongoDB.
+
+# Deployment Update: Tue Feb 10 12:36:28 IST 2026
