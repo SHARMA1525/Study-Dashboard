@@ -1,4 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+console.log(`[API_URL_DEBUG] Current API URL: ${API_URL}`);
 
 const getHeaders = () => {
     const token = localStorage.getItem('token');
